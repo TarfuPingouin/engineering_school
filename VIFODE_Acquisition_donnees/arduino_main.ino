@@ -20,8 +20,8 @@ Adafruit_8x8matrix matrix = Adafruit_8x8matrix();
 int brightness = 50;  // 0 → max, 255 → OFF
 bool send_data = true;
 int periode = 20;
-const char* card_ver = "Card V0.5";
-const char* soft_ver = "Soft V0.5";
+const char* card_ver = "Card V2.1";
+const char* soft_ver = "Soft V1.0";
 
 #define POLYTECH_BLUE 0x04DB  // #069AD8 en RGB565
 unsigned long lastTftUpdate = 0;
@@ -277,7 +277,7 @@ void drawTftStatic() {
   tft.print("Temp:");
 
   tft.setCursor(10, 127);
-  tft.print("DB Entry:");
+  tft.print("DB entries:");
 }
 
 void drawValue(int x, int y, float value, uint8_t decimals) {
