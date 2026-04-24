@@ -1,8 +1,5 @@
 '''
-
-
-
-
+Ver: Soft V1.0
 '''
 
 
@@ -296,6 +293,7 @@ def update():
         if index % 50 == 0: #Tous les 50 cycles on écrit dans la DB --> évite le spam disque
             conn.commit()
             check_db_alerts()
+            db_entry()
         
     except serial.SerialException as e:
         print("Erreur série :", e)
@@ -726,7 +724,19 @@ def temp_overshoot():
     message = "motifmatrix=temp\n"
     serialConnection.write(message.encode('utf-8'))
 
+def db_entry():
+    if not serialConnection or not serialConnection.is_open:
+        return
 
+    try:
+        cur.execute("SELECT COUNT(*) FROM threshold")
+        entries = cur.fetchone()[0]
+
+        message = f"db={entries}\n"
+        serialConnection.write(message.encode('utf-8'))
+
+    except Exception as e:
+        print("Erreur DB Entry :", e)
 
 def choc():
     if not serialConnection or not serialConnection.is_open:
